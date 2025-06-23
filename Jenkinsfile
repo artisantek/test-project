@@ -151,9 +151,7 @@ pipeline {
                 branch 'dev'
             }
             steps {
-                dir('helm') {
-                    kubernetesEKSHelmDeploy('movie-analyzer', 'dev')
-                }
+                kubernetesEKSHelmDeploy('movie-analyzer', 'dev')
             }
         }
 
@@ -162,9 +160,7 @@ pipeline {
                 branch 'staging'
             }
             steps {
-                dir('helm') {
-                    kubernetesEKSHelmDeploy('movie-analyzer', 'staging')
-                }
+                kubernetesEKSHelmDeploy('movie-analyzer', 'staging')
             }
         }
 
@@ -173,9 +169,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                dir('helm') {
-                    kubernetesEKSHelmDeploy('movie-analyzer', 'prod')
-                }
+                kubernetesEKSHelmDeploy('movie-analyzer', 'prod')
             }
         }
 
