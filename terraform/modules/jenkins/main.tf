@@ -31,6 +31,12 @@ resource "aws_instance" "jenkins_worker" {
   })
   iam_instance_profile   = aws_iam_instance_profile.jenkins_agent_profile.name
 
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 30
+    encrypted   = true
+  }
+
   tags = merge(var.tags, {
     Name = "jenkins-worker"
   })

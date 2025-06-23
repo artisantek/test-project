@@ -40,7 +40,7 @@ variable "master_ami_id" {
 
 variable "worker_instance_type" {
   type    = string
-  default = "t2.medium"
+  default = "t3.large"
 }
 
 variable "worker_ami_id" {

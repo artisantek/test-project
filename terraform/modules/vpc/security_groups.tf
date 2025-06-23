@@ -151,6 +151,15 @@ resource "aws_security_group" "jenkins_worker" {
     description     = "SSH from bastion"
   }
 
+  # SSH from Jenkins Master
+  ingress {
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.jenkins_master.id]
+    description     = "SSH from Jenkins Master"
+  }
+
   # Allow SonarQube traffic from the SonarQube ALB
   ingress {
     from_port       = 9000
@@ -217,11 +226,11 @@ resource "aws_security_group" "rds" {
   vpc_id      = aws_vpc.this.id
 
   ingress {
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.eks_nodes.id]
-    description     = "Postgres from EKS nodes"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.101.0/24", "10.0.102.0/24"]
+    description = "Postgres access from private subnets"
   }
 
   ingress {
@@ -241,24 +250,3 @@ resource "aws_security_group" "rds" {
 
   tags = merge(var.tags, { Name = "rds-sg" })
 }
-
-# Stand-alone rules to avoid SG dependency cycle
-resource "aws_security_group_rule" "jenkins_master_from_worker_agent" {
-  type                     = "ingress"
-  security_group_id        = aws_security_group.jenkins_master.id
-  source_security_group_id = aws_security_group.jenkins_worker.id
-  from_port                = 50000
-  to_port                  = 50000
-  protocol                 = "tcp"
-  description              = "Agent (JNLP) connections from worker to master"
-}
-
-resource "aws_security_group_rule" "jenkins_worker_ssh_from_master" {
-  type                     = "ingress"
-  security_group_id        = aws_security_group.jenkins_worker.id
-  source_security_group_id = aws_security_group.jenkins_master.id
-  from_port                = 22
-  to_port                  = 22
-  protocol                 = "tcp"
-  description              = "SSH from master to worker"
-} 
