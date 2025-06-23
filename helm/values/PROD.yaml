@@ -1,0 +1,25 @@
+# PRODUCTION Environment Configuration
+# Backend configuration
+backend:
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "1000m"
+
+# Frontend configuration
+frontend:
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Model server configuration
+model:
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Ingress configuration
+ingress:
+  host: movie.artisantek.in

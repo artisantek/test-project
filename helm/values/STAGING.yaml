@@ -1,0 +1,25 @@
+# STAGING Environment Configuration
+# Backend configuration
+backend:
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Frontend configuration
+frontend:
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+
+# Model server configuration
+model:
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+
+# Ingress configuration
+ingress:
+  host: staging-movie.artisantek.in
