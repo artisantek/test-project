@@ -15,7 +15,7 @@ pipeline {
         SCANNER_HOME=tool 'sonar-scanner'
     }
     
-    agent {label 'docker'}
+    agent {label 'agent'}
     stages {
         stage('Git Checkout') {
             steps {
