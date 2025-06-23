@@ -6,6 +6,9 @@ backend:
       memory: "1Gi"
       cpu: "1000m"
 
+  env:
+    DB_NAME: "moviereviews"
+
 # Frontend configuration
 frontend:
   resources:
