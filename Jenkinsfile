@@ -26,7 +26,7 @@ pipeline {
         stage("Sonarqube Analysis ") {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    dir('movie-analyzer-app') { 
+                    dir('movie-analyzer-app/frontend') { 
                         sh '''
                         $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName="movie-analyzer" \
